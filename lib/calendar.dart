@@ -11,6 +11,7 @@ library calendar;
 
 export 'src/calendar/appointment_engine/appointment.dart';
 export 'src/calendar/appointment_engine/calendar_datasource.dart';
+export 'src/calendar/appointment_engine/recurrence_helper.dart';
 export 'src/calendar/appointment_engine/recurrence_properties.dart';
 export 'src/calendar/common/calendar_controller.dart';
 export 'src/calendar/common/enums.dart';
