@@ -6174,14 +6174,16 @@ class _CalendarViewState extends State<_CalendarView>
       final double scrollPosition = _getScrollPositionForCurrentDate(
           _updateCalendarStateDetails.currentDate!);
       if (scrollPosition == -1 ||
-          _scrollController!.position.pixels == scrollPosition) {
+          (_scrollController != null &&
+              _scrollController!.position.pixels == scrollPosition)) {
         return;
       }
-
-      _scrollController!.jumpTo(
-          _scrollController!.position.maxScrollExtent > scrollPosition
-              ? scrollPosition
-              : _scrollController!.position.maxScrollExtent);
+      if (_scrollController != null) {
+        _scrollController!.jumpTo(
+            _scrollController!.position.maxScrollExtent > scrollPosition
+                ? scrollPosition
+                : _scrollController!.position.maxScrollExtent);
+      }
     });
   }
 
@@ -6214,7 +6216,7 @@ class _CalendarViewState extends State<_CalendarView>
       }
     }
 
-    if (_scrollController!.hasClients) {
+    if (_scrollController != null && _scrollController!.hasClients) {
       if (timeToPosition > _scrollController!.position.maxScrollExtent) {
         timeToPosition = _scrollController!.position.maxScrollExtent;
       } else if (timeToPosition < _scrollController!.position.minScrollExtent) {

@@ -1,4 +1,4 @@
-﻿## [26.2.9] - 08/13/2024
+## Unreleased
 
 **Bug fixes**
 * Now, the horizontal scroll bar is draggable in the timeline view on both web and desktop platforms.
