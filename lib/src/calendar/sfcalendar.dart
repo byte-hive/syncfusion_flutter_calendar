@@ -10360,7 +10360,7 @@ class _CalendarHeaderViewState extends State<_CalendarHeaderView> {
                           color: Colors.transparent,
                         ),
                         child: Icon(
-                          Icons.more_vert,
+                          Icons.calendar_view_week_outlined,
                           color: style.color,
                           size: style.fontSize,
                         ))

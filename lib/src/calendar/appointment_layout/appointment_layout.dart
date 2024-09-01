@@ -1836,7 +1836,7 @@ class _AppointmentRenderObject extends CustomCalendarRenderObject {
             appointment.recurrenceRule != null &&
                 appointment.recurrenceRule!.isNotEmpty;
         final double iconTextSize = _getTextSize(
-            appointmentRect, _textPainter.textScaler.scale(textSize));
+            appointmentRect, textSize * _textPainter.textScaleFactor);
         const double iconPadding = 2;
         //// Padding 4 is left and right 2 padding.
         final double iconSize = iconTextSize + (2 * iconPadding);
@@ -2199,10 +2199,12 @@ class _AppointmentRenderObject extends CustomCalendarRenderObject {
               appointmentTextStyle.fontSize! * textScaleFactor);
         }
       }
-
+      final int minute =
+          appointment.endTime.difference(appointment.startTime).inMinutes;
       final TextSpan span = TextSpan(
         text: appointment.subject,
-        style: appointmentTextStyle,
+        style: appointmentTextStyle
+            .copyWith(fontSize: minute > 15 ? appointmentTextStyle.fontSize : 8)
       );
 
       _textPainter =
@@ -2232,11 +2234,12 @@ class _AppointmentRenderObject extends CustomCalendarRenderObject {
         continue;
       }
 
-      if ((_textPainter.maxLines == 1 || _textPainter.maxLines == null) &&
-          _textPainter.height > totalHeight) {
-        _updateAppointmentHovering(appointmentRect, canvas);
-        continue;
-      }
+      // if ((_textPainter.maxLines == 1 || _textPainter.maxLines == null) &&
+      //     _textPainter.height > totalHeight) {
+      //   _updateAppointmentHovering(appointmentRect, canvas);
+      //
+      //   continue;
+      // }
 
       if (isRTL) {
         xPosition +=
@@ -2246,7 +2249,7 @@ class _AppointmentRenderObject extends CustomCalendarRenderObject {
       _textPainter.paint(
           canvas,
           Offset(xPosition + (isRTL ? 0 : textStartPadding),
-              yPosition + textStartPadding));
+              yPosition + (minute > 15 ? textStartPadding : -1)));
       final bool isRecurrenceAppointment = appointment.recurrenceRule != null &&
           appointment.recurrenceRule!.isNotEmpty;
 
@@ -2271,7 +2274,8 @@ class _AppointmentRenderObject extends CustomCalendarRenderObject {
             appointmentRect.tlRadius,
             useMobilePlatformUI,
             isRecurrenceAppointment,
-            appointmentTextStyle);
+            appointmentTextStyle,
+            appointment);
       }
 
       _updateAppointmentHovering(appointmentRect, canvas);
@@ -2368,7 +2372,8 @@ class _AppointmentRenderObject extends CustomCalendarRenderObject {
       Radius cornerRadius,
       bool useMobilePlatformUI,
       bool isRecurrenceAppointment,
-      TextStyle appointmentTextStyle) {
+      TextStyle appointmentTextStyle,
+      CalendarAppointment appointment) {
     final double xPadding = useMobilePlatformUI ? 1 : 2;
     const double bottomPadding = 2;
     double textSize = appointmentTextStyle.fontSize!;
@@ -2382,13 +2387,16 @@ class _AppointmentRenderObject extends CustomCalendarRenderObject {
     double maxTextWidth = appointmentWidth - textPadding - 2;
     maxTextWidth = maxTextWidth > 0 ? maxTextWidth : 0;
     _textPainter.layout(maxWidth: maxTextWidth);
+    final int minutes =
+        appointment.endTime.difference(appointment.startTime).inMinutes;
+    final int yPaddingRecurrence = minutes > 15 ? 0 : 2;
     canvas.drawRRect(
         RRect.fromRectAndRadius(
             Rect.fromLTRB(
                 isRTL
                     ? rect.left + textSize + xPadding
                     : rect.right - textSize - xPadding,
-                rect.bottom - bottomPadding - textSize,
+                rect.bottom + yPaddingRecurrence - bottomPadding - textSize,
                 isRTL ? rect.left : rect.right,
                 rect.bottom),
             cornerRadius),
@@ -2396,7 +2404,7 @@ class _AppointmentRenderObject extends CustomCalendarRenderObject {
     _textPainter.paint(
         canvas,
         Offset(isRTL ? rect.left + xPadding : rect.right - textSize - xPadding,
-            rect.bottom - bottomPadding - textSize));
+            rect.bottom + yPaddingRecurrence - bottomPadding - textSize));
   }
 
   void _drawTimelineAppointments(Canvas canvas, Size size, Paint paint) {
