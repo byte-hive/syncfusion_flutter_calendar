@@ -8799,6 +8799,7 @@ class _SfCalendarState extends State<SfCalendar>
                   headerStyle: DateRangePickerHeaderStyle(
                     textAlign:
                         _isMobilePlatform ? TextAlign.center : TextAlign.left,
+                      backgroundColor: Colors.white
                   ),
                   monthViewSettings: DateRangePickerMonthViewSettings(
                     viewHeaderHeight: pickerHeight / 8,
