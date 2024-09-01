@@ -8772,6 +8772,7 @@ class _SfCalendarState extends State<SfCalendar>
                       ),
                 child: SfDateRangePicker(
                   showNavigationArrow: true,
+                  backgroundColor: Colors.white,
                   initialSelectedDate: _currentDate,
                   initialDisplayDate: _currentDate,
                   todayHighlightColor: todayColor,
