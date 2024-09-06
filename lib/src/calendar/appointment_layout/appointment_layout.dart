@@ -6,6 +6,7 @@ import 'package:syncfusion_flutter_core/core.dart';
 import 'package:syncfusion_flutter_core/localizations.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 
+import '../../../calendar.dart';
 import '../appointment_engine/appointment_helper.dart';
 import '../appointment_engine/month_appointment_helper.dart';
 import '../common/calendar_view_helper.dart';
@@ -2250,6 +2251,7 @@ class _AppointmentRenderObject extends CustomCalendarRenderObject {
           canvas,
           Offset(xPosition + (isRTL ? 0 : textStartPadding),
               yPosition + (minute > 15 ? textStartPadding : -1)));
+      final occurrence = (appointment.data as Appointment?)?.occurrence ?? false;
       final bool isRecurrenceAppointment = appointment.recurrenceRule != null &&
           appointment.recurrenceRule!.isNotEmpty;
 
@@ -2263,7 +2265,7 @@ class _AppointmentRenderObject extends CustomCalendarRenderObject {
         }
       }
 
-      if (isRecurrenceAppointment || appointment.recurrenceId != null) {
+      if (occurrence || isRecurrenceAppointment || appointment.recurrenceId != null) {
         _addRecurrenceIconForDay(
             canvas,
             size,

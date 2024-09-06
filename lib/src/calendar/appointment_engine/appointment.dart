@@ -85,6 +85,7 @@ class Appointment with Diagnosticable {
     this.subject = '',
     this.color = Colors.lightBlue,
     this.recurrenceExceptionDates,
+    this.occurrence = false
   })  : notes = notes != null && notes.contains('isOccurrenceAppointment')
             ? notes.replaceAll('isOccurrenceAppointment', '')
             : notes,
@@ -145,6 +146,8 @@ class Appointment with Diagnosticable {
   /// }
   ///  ```
   DateTime startTime;
+
+  bool occurrence;
 
   /// The end time for an [Appointment] in [SfCalendar].
   ///
