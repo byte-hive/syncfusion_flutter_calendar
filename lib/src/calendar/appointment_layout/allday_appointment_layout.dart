@@ -7,6 +7,7 @@ import '../../../calendar.dart';
 import '../appointment_engine/appointment_helper.dart';
 import '../common/calendar_view_helper.dart';
 import '../common/date_time_engine.dart';
+import '../common/selection_details.dart' as selection_details;
 
 /// Used to holds the all day appointment views in calendar widgets.
 class AllDayAppointmentLayout extends StatefulWidget {
@@ -48,7 +49,7 @@ class AllDayAppointmentLayout extends StatefulWidget {
 
   /// Holds the selection details and user to trigger repaint to draw the
   /// selection.
-  final ValueNotifier<SelectionDetails?> repaintNotifier;
+  final ValueNotifier<selection_details.SelectionDetails?> repaintNotifier;
 
   /// Used to get the calendar state details.
   final UpdateCalendarState updateCalendarState;
@@ -449,7 +450,7 @@ class _AllDayAppointmentRenderWidget extends MultiChildRenderObjectWidget {
   final CalendarView view;
   final List<DateTime> visibleDates;
   final List<CalendarAppointment>? visibleAppointments;
-  final ValueNotifier<SelectionDetails?> repaintNotifier;
+  final ValueNotifier<selection_details.SelectionDetails?> repaintNotifier;
   final double timeLabelWidth;
   final double allDayPainterHeight;
   final bool isRTL;
@@ -766,11 +767,13 @@ class _AllDayAppointmentRenderObject extends CustomCalendarRenderObject {
     _allDayHoverPosition.addListener(markNeedsPaint);
   }
 
-  ValueNotifier<SelectionDetails?> _selectionNotifier;
+  ValueNotifier<selection_details.SelectionDetails?> _selectionNotifier;
 
-  ValueNotifier<SelectionDetails?> get selectionNotifier => _selectionNotifier;
+  ValueNotifier<selection_details.SelectionDetails?> get selectionNotifier =>
+      _selectionNotifier;
 
-  set selectionNotifier(ValueNotifier<SelectionDetails?> value) {
+  set selectionNotifier(
+      ValueNotifier<selection_details.SelectionDetails?> value) {
     if (_selectionNotifier == value) {
       return;
     }
@@ -1436,7 +1439,7 @@ class _AllDayAppointmentRenderObject extends CustomCalendarRenderObject {
   /// Used to pass the argument of create box painter and it is called when
   /// decoration have asynchronous data like image.
   void _updateSelectionDecorationPainter() {
-    selectionNotifier.value = SelectionDetails(
+    selectionNotifier.value = selection_details.SelectionDetails(
         selectionNotifier.value!.appointmentView,
         selectionNotifier.value!.selectedDate);
   }
