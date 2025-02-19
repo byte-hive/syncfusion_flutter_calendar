@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+
+import 'calendar_view_helper.dart';
+
 /// The class contains all day panel selection details.
 /// if all day panel appointment selected then [appointmentView] holds
 /// appointment details, else [selectedDate] holds selected region date value.
