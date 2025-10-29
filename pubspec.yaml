@@ -4,25 +4,25 @@ version: 26.2.11+1
 homepage: https://github.com/syncfusion/flutter-widgets/tree/master/packages/syncfusion_flutter_calendar
 
 screenshots:
-  - description: 'This screenshot shows the agenda view and recurrence view.'
+  - description: "This screenshot shows the agenda view and recurrence view."
     path: screenshots/flutter-calendar-agenda-view-recurrence-view.png
-  - description: 'This screenshot shows the resource view and month cell customization.'
+  - description: "This screenshot shows the resource view and month cell customization."
     path: screenshots/flutter-calendar-resource-view-month-cell-customization.png
-  - description: 'This screenshot shows the load more feature in calendar.'
+  - description: "This screenshot shows the load more feature in calendar."
     path: screenshots/flutter-calendar-load-more.gif
 
 environment:
-  sdk: '>=2.17.0 <4.0.0'
+  sdk: ">=2.17.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   timezone: 0.9.4
-  syncfusion_flutter_core: ^26.2.11
+  syncfusion_flutter_core: ^31.2.4
 
-  syncfusion_flutter_datepicker: ^26.2.11
+  syncfusion_flutter_datepicker: ^31.2.4
 
-  intl: '>=0.18.1 <0.20.0'
+  intl: 0.20.2
 
 dev_dependencies:
   flutter_test:
